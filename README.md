@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+README for IntelliJargons
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Team Name: 
 
-## Available Scripts
+IntelliJargons
 
-In the project directory, you can run:
 
-### `npm start`
+Proposed Level of Achievement:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Apollo 11
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+Motivation 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Reading long and complex documents can be tedious and time-consuming, especially when encountering unfamiliar terminology. 
 
-### `npm run build`
+Existing solutions, like Apple’s search function, require manual input to look up terms. Such look-ups with just the key terms often return explanations poorly related to the context of reading, while searching with more detail increases the time cost to sieve search results. Generating explanations with GenAI requires a similarly trivial process of inputting contexts, and adds new problems such as delusional sources. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A solution in short, is that we simply wish all documents come with a personalised glossary explaining all the key terms based on my existing knowledge and within the context of the document. Whenever jargons disrupt the reading flow, we wish that this glossary would pop up with an appropriate explanation. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+User Stories
 
-### `npm run eject`
+As a student who reads research papers, I want to receive instant explanations for technical terms so I can understand contents faster.
+As a start-up owner reviewing contracts, I want the system to highlight and explain legal jargon to save time and ensure accuracy in my understanding.
+As a business consultant reading reports, I want financial and industry-specific terms to be defined automatically for quick insights.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Scope of Project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+IntelliJargons aims to fulfill the wish as an Augmented Document Reader that utilizes GenAIs to create the personalised contextual glossary. It should analyze the document content, identify relevant key terms, and generate concise one-line explanations dynamically. It should improve reading efficiency, comprehension, and accessibility for users handling technical or complex documents. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+IntelliJargons provides an API for users to view the prompts and resources fed to the GenAI and allow them to modify along the way. It registers a glossary, allowing users to source explanations based on their own preferences.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Core Features (MVP):
+
+Document Upload & Parsing 
+IntelliJargons caches the uploaded documents in each user’s account. It supports documents of different formats. Uploaded documents are parsed and stored in databases related to each account.
+
+AI-generated Glossary
+IntelliJargons identifies jargons related to the theme, and generates a glossary for the Jargons. This page records the automatically generated glossary, with each term supporting modification and re-generation.
+
+AI-Powered One-Liner Explanations
+Within each entry in the glossary, the highlighted terms capture the key idea which contributes to the one-liner explanation users see in the reader tabs.
+ 
+Reader
+This is the core feature of IntelliJargons. Its UI design is similar to existing PDF readers. When users hover their mouse over jargons recorded in the glossary, a box pops out next to his cursor with the 1-liner explanation in it. 
+
+Extended Features:
+
+Export Annotations
+Saves processed documents with highlighted definition, as well as the glossary, in a format according to user’s demand.
+
+FlashCard Generation
+Generates a stack of flashcards, each card containing a fill-in-the-blank question about the jargon that facilitates memorisation. 
+
+
+
+Proof of Concept
+
+Our code for the technical proof of concept is also readily available in the following github repository:
+Prateek2030s/IntelliJargons: repo of Team ID: 7164 Orbital 25
+
+Video demo:
+https://drive.google.com/file/d/1wlNx65Jfr4XTUlZDKUQXIMRtGJSf2eUP/view?usp=sharing
+
+Project Log
+
+Our project log is accessible through the following Google Sheets link:
+IntelliJargons Project Log - Google Sheets
+
