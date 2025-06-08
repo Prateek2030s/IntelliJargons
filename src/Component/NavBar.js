@@ -6,6 +6,7 @@ import Upload from '../Page/Upload';
 import Reader from '../Page/Reader';
 import Glossary from '../Page/Glossary';
 import GenAI from '../Page/GenAI';
+import {supabase} from '../App';
 
 function NavBar() {
   const [click, setClick] = useState(false);
@@ -14,6 +15,13 @@ function NavBar() {
 
   const handleClick = () => setClick(! click);
   const closeMobileMenu = () => setClick(false);
+
+  async function handleLogOut(){
+  const {error} = await supabase.auth.signOut({ scope: 'local' })
+  if(error != null){
+    console.error('Error logging out!' + error.message);
+  }
+}
 
   const showButton = () =>{
     if(window.innerWidth <= 960){
@@ -60,8 +68,12 @@ function NavBar() {
                   </Link>
                 </li>
                 </ul>
-
-                
+            {<Button 
+                buttonStyle='btn-outline'
+                onClick={handleLogOut}>
+                  Log out
+                </Button>
+            }
            </div>
         </nav>
      </>

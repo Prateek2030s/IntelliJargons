@@ -1,25 +1,25 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "../LogInTab";
-import './LogIn.css';
+import { supabase } from "../App";
 
-function LoginPage() {
+function LogIn() {
   return (
-    <>
-      <h1
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Orbitals ToDoList
-      </h1>
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        providers={[]}
-      ></Auth>
-    </>
+  <>
+    <h1
+      style = {{
+        textAlign: "center",
+      }}
+    >
+        IntelliJargons
+        </h1>
+
+        <Auth 
+          supabaseClient={supabase} 
+          appearance={{theme: ThemeSupa}} 
+          providers={[]}
+          />
+  </>
   );
 }
 
-export default LoginPage;
+export default LogIn;
