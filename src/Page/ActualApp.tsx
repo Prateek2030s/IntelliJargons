@@ -4,7 +4,7 @@ import NavBar from '../Component/NavBar';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './Home';
 import Upload from './Upload';
-import Reader from './Reader';
+import ReaderWrapper from './ReaderWrapper';
 import Glossary from './Glossary';
 import GenAI from './GenAI';
 import {Button} from '../Component/button'
@@ -27,7 +27,7 @@ function App() {    //will input user details here
       <Routes>
         <Route path = '/exact'/>
         <Route path="/upload"   element={<Upload />} />
-        <Route path="/reader"   element={<Reader />} />
+        <Route path="/reader"   element={<ReaderWrapper />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/GenAI"    element={<GenAI />} />  
       </Routes>
