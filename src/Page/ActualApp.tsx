@@ -9,14 +9,14 @@ import ReaderWrapper from './ReaderWrapper';
 import Glossary from './Glossary';
 import GenAI from './GenAI';
 
-function App() {
+function ActualApp() {
   return (
     <Router>
       <CssBaseline /> {/* Reset browser styles for consistency */}
       <Box
         sx={{
           minHeight: '100vh',
-          backgroundColor: '#6d92eeff',
+          backgroundColor: '#3b697cff',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -35,6 +35,7 @@ function App() {
           >
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/LogIn" element={<Home />} />
               <Route path="/upload" element={<Upload />} />
               <Route path="/reader" element={<ReaderWrapper />} />
               <Route path="/glossary" element={<Glossary />} />
@@ -47,5 +48,5 @@ function App() {
   );
 }
 
-export default App;
+export default ActualApp;
 

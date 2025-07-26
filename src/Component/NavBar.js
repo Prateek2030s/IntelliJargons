@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemText, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -21,14 +22,19 @@ function NavBar() {
     setMobileOpen(!mobileOpen);
   };
 
+  const navigate = useNavigate();
+
   const handleLogOut = async () => {
-    const { error } = await supabase.auth.signOut({ scope: 'local' });
-    if (error) {
-      console.error('Error logging out: ' + error.message);
-    }
+    // const { error } = await supabase.auth.signOut({ scope: 'local' });
+    // if (error) {
+    //   console.error('Error logging out: ' + error.message);
+    // }
+    await supabase.auth.signOut();
+    navigate('/');
   };
 
   const navLinks = [
+    { text: 'Home', path: '/'},
     { text: 'Upload', path: '/upload' },
     { text: 'Reader', path: '/reader' },
     { text: 'Glossary', path: '/glossary' },

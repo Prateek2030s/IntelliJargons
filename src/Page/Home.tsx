@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 6 }}>
+    <Container maxWidth="lg" sx={{ mt: 6, mb:20 }}>
       <Typography variant="h4" align="center" gutterBottom>
         Welcome to IntelliJargons
       </Typography>
