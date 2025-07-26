@@ -77,7 +77,7 @@ const promptToUse = rawPrompt
 
   // 4. Call Vercel Serverless API instead of OpenAI directly
   async function callVercelAPI(prompt: string) {
-    const res = await fetch('/api/extract-jargons', {
+    const res = await fetch('/api/extract_jargons', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ const promptToUse = rawPrompt
       user_id: userId,
       pdf_path: storagePath,
       jargons: list,
-      prompt_name // <-- store marker
+      prompt_name 
     })
   if (upErr) throw new Error(upErr.message)
 

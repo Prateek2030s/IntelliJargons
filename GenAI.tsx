@@ -121,6 +121,34 @@ const GenAI = () => {
     setStatus('Default prompt in use.');
   }
 
+  // Add this function inside your GenAI component
+  const handleDeletePrompt = async (promptId: number) => {
+    setStatus('Deleting prompt…');
+    try {
+      const { error } = await supabase
+        .from('user_prompts')
+        .delete()
+        .eq('id', promptId);
+      if (error) throw error;
+      // Refresh list
+      const uid = await getUserId();
+      const { data } = await supabase
+        .from('user_prompts')
+        .select('*')
+        .eq('user_id', uid);
+      setPrompts(data as UserPrompt[]);
+      setStatus('Prompt deleted!');
+      // Unselect if the deleted prompt was selected
+      if (selectedPrompt?.id === promptId) {
+        setSelectedPrompt(null);
+        localStorage.removeItem('selectedPrompt');
+        localStorage.setItem('selectedPromptName', 'default');
+      }
+    } catch (err: any) {
+      setStatus('Error: ' + err.message);
+    }
+  };
+
   return (
     <div>
       <h1>GenAI Prompt Portal</h1>
@@ -145,6 +173,9 @@ const GenAI = () => {
                   <div>{p.prompt}</div>
                   <button style={{ marginTop: 5 }} onClick={handleUsePrompt}>
                     Use this prompt
+                  </button>
+                  <button style={{ marginTop: 5, marginLeft: 8, background: 'red', color: 'white' }} onClick={() => handleDeletePrompt(p.id)}>
+                    Delete this prompt
                   </button>
                 </div>
               )}
