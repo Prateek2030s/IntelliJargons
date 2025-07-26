@@ -30,11 +30,11 @@ function NavBar() {
     //   console.error('Error logging out: ' + error.message);
     // }
     await supabase.auth.signOut();
-    navigate('/');
+    navigate('/LogIn');
   };
 
   const navLinks = [
-    { text: 'Home', path: '/'},
+    { text: 'Home', path: '/home'},
     { text: 'Upload', path: '/upload' },
     { text: 'Reader', path: '/reader' },
     { text: 'Glossary', path: '/glossary' },
