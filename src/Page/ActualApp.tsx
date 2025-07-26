@@ -8,7 +8,6 @@ import Upload from './Upload';
 import ReaderWrapper from './ReaderWrapper';
 import Glossary from './Glossary';
 import GenAI from './GenAI';
-import Entry from './Entry';
 import LogIn from './LogIn';
 
 function ActualApp() {

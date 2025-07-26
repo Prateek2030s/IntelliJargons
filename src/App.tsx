@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import './index.css'
 import LogIn from "./Page/LogIn";
 import ActualApp from "./Page/ActualApp";
-import Entry from './Page/Entry';
+
 
 
   export const supabase = createClient('https://swwrcuscnlrmwerlhtar.supabase.co', 
