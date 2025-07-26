@@ -117,7 +117,7 @@ const GenAI = () => {
   const handleUnselectPrompt = () => {
     setSelectedPrompt(null);
     localStorage.removeItem('selectedPrompt');
-    localStorage.setItem('selectedPromptName', 'default');
+    localStorage.setItem('selectedPromptName', 'Default');
     setStatus('Default prompt in use.');
   }
 
@@ -142,7 +142,7 @@ const GenAI = () => {
       if (selectedPrompt?.id === promptId) {
         setSelectedPrompt(null);
         localStorage.removeItem('selectedPrompt');
-        localStorage.setItem('selectedPromptName', 'default');
+        localStorage.setItem('selectedPromptName', 'Default');
       }
     } catch (err: any) {
       setStatus('Error: ' + err.message);

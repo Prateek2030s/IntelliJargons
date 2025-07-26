@@ -70,7 +70,7 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({
           style={{
               position: 'absolute',
               zIndex: 100,
-              background: '#fffbe6',
+              background: '#f9eca8ff',
               color: '#333',
               border: '1px solid #ccc',
               borderRadius: 4,
