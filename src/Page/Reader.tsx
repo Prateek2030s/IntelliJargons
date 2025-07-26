@@ -100,7 +100,7 @@ const Reader: React.FC<ReaderProps> = ({ storagePath, onBack }) => {
           borderLeft: '1px solid #ddd',
           padding: 20,
           overflowY: 'auto',
-          background: '#fafafa'
+          background: '#f7efefff'
         }}
       >
         <h3>Jargon Terms</h3>

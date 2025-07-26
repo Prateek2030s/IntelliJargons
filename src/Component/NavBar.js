@@ -41,8 +41,7 @@ function NavBar() {
             </Link>
             <div className='menu-icon' onClick={handleClick}>
               <i className={click ? 'fa-times': 'fas fa-bars'}/>
-              </div>  //hamburger menu, still being built
-
+              </div>  
               <ul className ={click ? 'nav-menu active' : 'nav-menu'}>
                 <li className='nav-item'>
                   <Link to='/upload' className='nav-links' onClick={closeMobileMenu}>
