@@ -5,7 +5,7 @@ pdfjs.GlobalWorkerOptions.workerSrc =
   `${process.env.PUBLIC_URL}/pdf.worker.min.mjs`
 
 const BUCKET     = 'pdfs'
-const OPENAI_KEY = process.env.REACT_APP_OPENAI_API_KEY!
+
 
 interface JargonItem {
   term: string
@@ -75,33 +75,25 @@ const promptToUse = rawPrompt
   ? `${rawPrompt}\n\n${jsonInstruction}\n\n${cheatProtection}\n\n${fullText}`
   : `${jsonInstruction}\n\n${fullText}`;
 
-  // 4. Call OpenAI
-  async function callOpenAI(prompt: string) {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method:  'POST',
+  // 4. Call Vercel Serverless API instead of OpenAI directly
+  async function callVercelAPI(prompt: string) {
+    const res = await fetch('/api/extract_jargons', {
+      method: 'POST',
       headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${OPENAI_KEY}`
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model:       'gpt-4.1-nano-2025-04-14',
-        temperature: 0,
-        max_tokens:  1500,
-        messages: [
-          { role: 'system', content: 'Output ONLY valid JSON.' },
-          { role: 'user',   content: prompt }
-        ]
-      })
-    })
+      body: JSON.stringify({ prompt })
+    });
     if (!res.ok) {
-      const info = await res.json().catch(() => ({}))
-      throw new Error(info.error?.message || `OpenAI HTTP ${res.status}`)
+      const info = await res.json().catch(() => ({}));
+      throw new Error(info.error?.message || `Vercel API HTTP ${res.status}`);
     }
-    const json = await res.json()
-    return json.choices?.[0]?.message?.content || ''
+    const json = await res.json();
+    // Expecting { result: string } or { result: object }
+    return json.result || '';
   }
 
-  let aiOutput = await callOpenAI(promptToUse)
+  let aiOutput = await callVercelAPI(promptToUse)
   let parsed: any
   try {
     parsed = JSON.parse(aiOutput)
@@ -128,7 +120,7 @@ const promptToUse = rawPrompt
       user_id: userId,
       pdf_path: storagePath,
       jargons: list,
-      prompt_name // <-- store marker
+      prompt_name 
     })
   if (upErr) throw new Error(upErr.message)
 

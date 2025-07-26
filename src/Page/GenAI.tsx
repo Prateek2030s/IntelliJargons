@@ -9,13 +9,6 @@ interface UserPrompt {
   prompt_name: string
 }
 
-// Helper to check if a prompt is related to explaining terms
-function isPromptValid(prompt: string): boolean {
-  // Must mention "explain", "definition", "define", "term", "glossary", or "jargon"
-  const keywords = ['explain', 'definition', 'define', 'term', 'glossary', 'jargon'];
-  const lower = prompt.toLowerCase();
-  return keywords.some(word => lower.includes(word));
-}
 
 // Helper to check if a file is empty
 async function isPdfEmpty(storagePath: string): Promise<boolean> {
@@ -84,10 +77,6 @@ const GenAI = () => {
     e.preventDefault();
     setStatus('Saving prompt…');
     try {
-      if (!isPromptValid(newPromptText)) {
-        setStatus('Prompt denied: Your prompt must be related to explaining terms found in the context.');
-        return;
-      }
       const uid = await getUserId();
       const { error } = await supabase
         .from('user_prompts')
@@ -110,11 +99,6 @@ const GenAI = () => {
   // Use the selected prompt to process the PDF
   const handleUsePrompt = async () => {
     if (!selectedPrompt) return;
-    // Check if the prompt is valid
-    if (!isPromptValid(selectedPrompt.prompt)) {
-      setStatus('Prompt denied: Your prompt must be related to explaining terms found in the context.');
-      return;
-    }
     // Check if the uploaded file is empty
     if (!storagePath) {
       setStatus('No PDF found.');
@@ -136,6 +120,34 @@ const GenAI = () => {
     localStorage.setItem('selectedPromptName', 'default');
     setStatus('Default prompt in use.');
   }
+
+  // Add this function inside your GenAI component
+  const handleDeletePrompt = async (promptId: number) => {
+    setStatus('Deleting prompt…');
+    try {
+      const { error } = await supabase
+        .from('user_prompts')
+        .delete()
+        .eq('id', promptId);
+      if (error) throw error;
+      // Refresh list
+      const uid = await getUserId();
+      const { data } = await supabase
+        .from('user_prompts')
+        .select('*')
+        .eq('user_id', uid);
+      setPrompts(data as UserPrompt[]);
+      setStatus('Prompt deleted!');
+      // Unselect if the deleted prompt was selected
+      if (selectedPrompt?.id === promptId) {
+        setSelectedPrompt(null);
+        localStorage.removeItem('selectedPrompt');
+        localStorage.setItem('selectedPromptName', 'default');
+      }
+    } catch (err: any) {
+      setStatus('Error: ' + err.message);
+    }
+  };
 
   return (
     <div>
@@ -161,6 +173,9 @@ const GenAI = () => {
                   <div>{p.prompt}</div>
                   <button style={{ marginTop: 5 }} onClick={handleUsePrompt}>
                     Use this prompt
+                  </button>
+                  <button style={{ marginTop: 5, marginLeft: 8, background: 'red', color: 'white' }} onClick={() => handleDeletePrompt(p.id)}>
+                    Delete this prompt
                   </button>
                 </div>
               )}
