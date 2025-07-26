@@ -1,0 +1,51 @@
+.glossary-container {
+  padding: 20px;
+}
+
+.glossary-section {
+  margin-bottom: 32px;
+}
+
+.glossary-file {
+  cursor: pointer;
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.glossary-file.expanded {
+  color: #007bff;
+}
+
+.glossary-prompts {
+  margin-left: 24px;
+}
+
+.glossary-prompt {
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.glossary-prompt.expanded {
+  color: #007bff;
+}
+
+.glossary-explanations {
+  margin-left: 24px;
+}
+
+.glossary-download-btn {
+  margin-bottom: 8px;
+  margin-right: 16px;
+  padding: 4px 12px;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.glossary-list {
+  list-style: disc inside;
+}

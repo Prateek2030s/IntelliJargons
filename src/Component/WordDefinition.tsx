@@ -68,17 +68,18 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({
         <div
           ref={tooltipRef}
           style={{
-            position: 'fixed',
-            top: tooltip.y,
-            left: tooltip.x,
-            background: 'white',
-            border: '1px solid #ccc',
-            padding: '8px',
-            borderRadius: '4px',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-            maxWidth: 240,
-            zIndex: 1000,
-            pointerEvents: 'none'
+              position: 'absolute',
+              zIndex: 100,
+              background: '#fffbe6',
+              color: '#333',
+              border: '1px solid #ccc',
+              borderRadius: 4,
+              padding: '8px 12px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              whiteSpace: 'normal', // allow wrapping
+              minWidth: 120,        // optional: minimum width
+              maxWidth: 320,        // optional: maximum width
+              wordBreak: 'break-word', // allow long words to wrap
           }}
         >
           {tooltip.content}
