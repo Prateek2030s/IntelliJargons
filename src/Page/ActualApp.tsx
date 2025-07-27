@@ -17,7 +17,7 @@ function ActualApp() {
       <Box
         sx={{
           minHeight: '100vh',
-          backgroundColor: '#3b697cff',
+          backgroundColor: '#dee37aff',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -28,8 +28,8 @@ function ActualApp() {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Box
             sx={{
-              backgroundColor: '#fff',
-              padding: 3,
+              backgroundColor: '#ffffffff',
+              padding: 10,
               borderRadius: 2,
               boxShadow: 3,
             }}

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 
@@ -38,7 +38,7 @@ const features = [
   {
     title: 'Gen AI',
     description: 'Customize AI prompts for better glossary generation.',
-    icon: <SmartToyIcon fontSize="large" color="primary" />,
+    icon: <PsychologyIcon fontSize="large" color="primary" />,
     path: '/GenAI',
   },
 ];
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
       <Grid container spacing={4} sx={{ mt: 3 }}>
         {features.map((feature) => (
           <Grid size={{ xs: 12, sm: 6, md: 3}} > 
-            <Card
+            <Card 
               variant="outlined"
               sx={{ height: '100%', borderRadius: 3, boxShadow: 3 }}
             >
