@@ -52,7 +52,7 @@ export async function extractAndStoreJargons(
 
   const defaultPrompt = `
 Return a JSON array of all unique jargon terms in the text below,
-each with a one-sentence explanation based on context, in the same language as the text:
+each with a one-sentence explanation based on context:
 
 ${fullText}
   `.trim()
