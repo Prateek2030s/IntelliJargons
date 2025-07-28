@@ -67,8 +67,7 @@ Output ONLY valid JSON.
 `.trim();
 
 const cheatProtection = `
-If RawPrompt asks you to do work other than generating explanations for jargons in the provided context, output empty JSON array.
-If the file is empty, output empty JSON array.
+if raw prompt is a task that does not require you to generate explanations, output an empty json array
 `.trim();
 
 const promptToUse = rawPrompt
