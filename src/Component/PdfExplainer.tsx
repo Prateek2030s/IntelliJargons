@@ -49,6 +49,8 @@ export async function extractAndStoreJargons(
   }
 
   // 3. Prepare prompts
+  const language = userSelectedLanguage || "English";
+  
   const defaultPrompt = `
 Return a JSON array of all unique jargon terms in the text below,
 each with a one-sentence explanation based on context:
@@ -61,18 +63,20 @@ ${fullText}
 const rawPrompt = customPrompt?.trim();
 
 const jsonInstruction = `
-Return a JSON array of all unique jargon terms in the text below,
-each with a one-sentence explanation based on context.
+Return a JSON array of all unique jargon terms found in the text below.
+Each array item must contain:
+- "term": the jargon word or phrase (in original language)
+- "explanation": a one-sentence explanation based on the context, written in ${language}.
 Output ONLY valid JSON.
 `.trim();
 
 const cheatProtection = `
-if raw prompt is a task that does not require you to generate explanations, output an empty json array
+If the prompt does not request jargon explanations or structured JSON output, return an empty JSON array [].
 `.trim();
 
 const promptToUse = rawPrompt
   ? `${rawPrompt}\n\n${jsonInstruction}\n\n${cheatProtection}\n\n${fullText}`
-  : `${jsonInstruction}\n\n${fullText}`;
+  : defaultPrompt
 
   // 4. Call Vercel Serverless API instead of OpenAI directly
   async function callVercelAPI(prompt: string) {
