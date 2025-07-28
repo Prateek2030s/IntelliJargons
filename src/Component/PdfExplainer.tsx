@@ -62,12 +62,17 @@ const rawPrompt = customPrompt?.trim();
 const jsonInstruction = `
 You must return a JSON array of all unique jargon terms found in the text below.
 Each array item must contain:
-- "term": the jargon word or phrase (original language)
+- "term": the jargon word or phrase (in original language)
 - "explanation": a one-sentence explanation based on the context.
- Only change the explanation language if the rawPrompt explicitly instructs you to use a specific language (e.g. "Explain in Japanese").
+
+If the rawPrompt contains a phrase like "explain in [language]" or "use [language] for explanation",
+then write the explanations in that language.
+For example, if the prompt is "explain in Japanese", return explanations in Japanese.
 Otherwise, default to English.
+
 Output ONLY valid JSON.
 `.trim();
+
   
 const cheatProtection = `
 If the prompt does not request jargon explanations or structured JSON output, return "illegal!"
