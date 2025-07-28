@@ -65,7 +65,6 @@ Each array item must contain:
 - "term": the jargon word or phrase (original language)
 - "explanation": a one-sentence explanation based on the context.
 If a language is mentioned in the prompt, use that language for the explanation.
-Otherwise, default to English.
 Output ONLY valid JSON.
 `.trim();
   
