@@ -64,7 +64,8 @@ You must return a JSON array of all unique jargon terms found in the text below.
 Each array item must contain:
 - "term": the jargon word or phrase (original language)
 - "explanation": a one-sentence explanation based on the context.
-If a language is mentioned in the rawPrompt, use that language for the explanation.
+ Only change the explanation language if the rawPrompt explicitly instructs you to use a specific language (e.g. "Explain in Japanese").
+Otherwise, default to English.
 Output ONLY valid JSON.
 `.trim();
   
