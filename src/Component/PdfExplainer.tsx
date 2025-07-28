@@ -49,8 +49,7 @@ export async function extractAndStoreJargons(
   }
 
   // 3. Prepare prompts
-  const language = userSelectedLanguage || "English";
-  
+
   const defaultPrompt = `
 Return a JSON array of all unique jargon terms in the text below,
 each with a one-sentence explanation based on context:
@@ -58,18 +57,18 @@ each with a one-sentence explanation based on context:
 ${fullText}
   `.trim()
 
-
-//guarding block to make sure custom prompt returns json array
 const rawPrompt = customPrompt?.trim();
 
 const jsonInstruction = `
-Return a JSON array of all unique jargon terms found in the text below.
+You must return a JSON array of all unique jargon terms found in the text below.
 Each array item must contain:
-- "term": the jargon word or phrase (in original language)
-- "explanation": a one-sentence explanation based on the context, written in ${language}.
+- "term": the jargon word or phrase (original language)
+- "explanation": a one-sentence explanation based on the context.
+If a language is mentioned in the prompt, use that language for the explanation.
+Otherwise, default to English.
 Output ONLY valid JSON.
 `.trim();
-
+  
 const cheatProtection = `
 If the prompt does not request jargon explanations or structured JSON output, return an empty JSON array [].
 `.trim();
