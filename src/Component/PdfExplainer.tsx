@@ -74,7 +74,7 @@ If the prompt does not request jargon explanations or structured JSON output, re
 
 const promptToUse = rawPrompt
   ? `${rawPrompt}\n\n${jsonInstruction}\n\n${cheatProtection}\n\n${fullText}`
-  : defaultPrompt
+  : `${jsonInstruction}\n\n${cheatProtection}\n\nText:\n${fullText}`;
 
   // 4. Call Vercel Serverless API instead of OpenAI directly
   async function callVercelAPI(prompt: string) {
