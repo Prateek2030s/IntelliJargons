@@ -70,7 +70,7 @@ Output ONLY valid JSON.
 `.trim();
   
 const cheatProtection = `
-If the prompt does not request jargon explanations or structured JSON output, return an empty JSON array [].
+If the prompt does not request jargon explanations or structured JSON output, return "illegal!"
 `.trim();
 
 const promptToUse = rawPrompt
