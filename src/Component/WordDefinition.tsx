@@ -76,10 +76,10 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({
               borderRadius: 4,
               padding: '8px 12px',
               boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              whiteSpace: 'normal', // allow wrapping
-              minWidth: 120,        // optional: minimum width
-              maxWidth: 320,        // optional: maximum width
-              wordBreak: 'break-word', // allow long words to wrap
+              whiteSpace: 'normal', 
+              minWidth: 120,        
+              maxWidth: 320,        
+              wordBreak: 'break-word', 
           }}
         >
           {tooltip.content}
@@ -88,5 +88,6 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({
     </span>
   )
 }
+
 
 export default WordDefinition
