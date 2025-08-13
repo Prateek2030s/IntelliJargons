@@ -56,7 +56,7 @@
 //         }
 //         setStoragePath(pdfData.pdf_path)
 
-//         // 2. Fetch prompts for this user
+//         // Fetch prompts for this user
 //         const { data, error } = await supabase
 //           .from('user_prompts')
 //           .select('*')
@@ -441,3 +441,4 @@ const GenAI = () => {
 };
 
 export default GenAI;
+

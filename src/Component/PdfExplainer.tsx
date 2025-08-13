@@ -1,3 +1,4 @@
+//handles session and pdf rendering. 
 import { supabase } from '../App'
 import { pdfjs }    from 'react-pdf'
 
@@ -15,18 +16,16 @@ interface JargonItem {
 pdfjs.GlobalWorkerOptions.workerSrc =
   `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.mjs`
 
-/**
- * Extracts jargon definitions via OpenAI and stores in Supabase.
- * If a customPrompt is provided, it's used; otherwise, a default JSON-extraction prompt is used.
- * Falls back to default-extraction if the custom prompt produces non-array output.
- */
+/* define jargons via OpenAI and store them in Supabase according to userId and prompt name.
+If a customPrompt is provided, it's used; otherwise, a default JSON-extraction prompt is used.
+Falls back to default-extraction if the custom prompt produces non-array output. */
 export async function extractAndStoreJargons(
   userId: string,
   storagePath: string,
   customPrompt?: string,
   promptName?: string 
 ): Promise<number> {
-  // 1. Download PDF blob
+  // Download PDF blob
   const { data: blob, error: dlErr } = await supabase
     .storage
     .from(BUCKET)
@@ -35,7 +34,7 @@ export async function extractAndStoreJargons(
     throw new Error(dlErr?.message ?? 'Failed to download PDF')
   }
 
-  // 2. Read full text
+  // Read full text
   const arrayBuffer = await blob.arrayBuffer()
   const pdfDoc      = await pdfjs.getDocument({ data: arrayBuffer }).promise
   let fullText      = ''
@@ -48,7 +47,8 @@ export async function extractAndStoreJargons(
     fullText     += pageText + ''
   }
 
-  // 3. Prepare prompts
+  // prompts
+
   const defaultPrompt = `
 Return a JSON array of all unique jargon terms in the text below,
 each with a one-sentence explanation based on context:
@@ -56,26 +56,35 @@ each with a one-sentence explanation based on context:
 ${fullText}
   `.trim()
 
-
-//guarding block to make sure custom prompt returns json array
 const rawPrompt = customPrompt?.trim();
 
 const jsonInstruction = `
-Return a JSON array of all unique jargon terms in the text below,
-each with a one-sentence explanation based on context.
+You must return a JSON array of all unique jargon terms found in the text below.
+Each array item must contain:
+- "term": the jargon word or phrase (in original language)
+- "explanation": a one-sentence explanation based on the context.
+
+If the rawPrompt contains a phrase like "explain in [language]" or "use [language] for explanation",
+then write the explanations in that language.
+For example, if the prompt is "explain in Japanese", return explanations in Japanese.
+Otherwise, default to English.
+
 Output ONLY valid JSON.
 `.trim();
-
+//fortified prompt set for online customisable prompts. 
+  //added block against questions asking for genAI model. Added specific instructions for langauge
+  
 const cheatProtection = `
-If RawPrompt asks you to do work other than generating explanations for jargons in the provided context, output empty JSON array.
-If the file is empty, output empty JSON array.
+If the prompt does not request jargon explanations or structured JSON output, return "illegal!"
 `.trim();
-
+//fortified prompt against missuse, such as analysing resume
+  
 const promptToUse = rawPrompt
   ? `${rawPrompt}\n\n${jsonInstruction}\n\n${cheatProtection}\n\n${fullText}`
-  : `${jsonInstruction}\n\n${fullText}`;
+  : `${jsonInstruction}\n\n${cheatProtection}\n\nText:\n${fullText}`;
+  //connect functional prompt with defence blocks. text also passed in
 
-  // 4. Call Vercel Serverless API instead of OpenAI directly
+  //update to API call, instead of local genAI
   async function callVercelAPI(prompt: string) {
     const res = await fetch('/api/extract_jargons', {
       method: 'POST',
@@ -99,7 +108,7 @@ const promptToUse = rawPrompt
     parsed = JSON.parse(aiOutput)
   } catch {
     if (rawPrompt) {
-      // Custom prompt: treat raw output as JSON-compatible content
+      //rawprompt gives JSON obj for sure
       parsed = aiOutput
     } else {
       console.error('Failed to parse JSON from default prompt:', aiOutput)
@@ -107,13 +116,12 @@ const promptToUse = rawPrompt
     }
   }
 
-  // Always wrap into an array for uniform processing
+  // wrap the jsons in an array
   const list = Array.isArray(parsed) ? parsed : [parsed]
-
-  // Determine prompt marker
+  
   const prompt_name = promptName || (customPrompt ? 'custom' : 'default');
 
-  // 5. Store the results back in Supabase (allow any JSON array)
+  // store into supabase according to uuid then pdf then prompt name
   const { error: upErr } = await supabase
     .from('user_pdf_jargons')
     .upsert({
@@ -125,4 +133,6 @@ const promptToUse = rawPrompt
   if (upErr) throw new Error(upErr.message)
 
   return list.length
+  //marker for end of processing, for async function, also to check is any jargon identified at all
 }
+

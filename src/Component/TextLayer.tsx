@@ -1,3 +1,4 @@
+//creates in-text highlights. when cursor hovers over the highlights, the explanations window pops up
 import React, { useEffect, useState } from 'react'
 import { pdfjs } from 'react-pdf'
 import WordDefinition from './WordDefinition'
@@ -80,7 +81,7 @@ function pluralInsensitiveRegex(term: string) {
     }
   })
 
-  // 3. For each match, determine which item(s) it overlaps and render overlays
+  // for each match, determine which item(s) it overlaps and render overlays
   const overlays: JSX.Element[] = []
   matches.forEach(({ start, end, explanation, jIdx, term }) => {
     itemRanges.forEach(({ start: itemStart, end: itemEnd, item, idx }) => {
@@ -151,4 +152,5 @@ function pluralInsensitiveRegex(term: string) {
 }
 
 export default TextLayer
+
 

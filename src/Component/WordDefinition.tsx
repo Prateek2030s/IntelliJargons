@@ -1,3 +1,4 @@
+//pop-out window carrying the definitions
 import React, { useState, useRef, useEffect } from 'react'
 
 interface WordDefinitionProps {
@@ -88,5 +89,6 @@ const WordDefinition: React.FC<WordDefinitionProps> = ({
     </span>
   )
 }
+
 
 export default WordDefinition

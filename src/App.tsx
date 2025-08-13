@@ -96,7 +96,7 @@ import ActualApp from "./Page/ActualApp";
 // import NavBar from './Component/NavBar';
 
 // export const supabase = createClient('https://swwrcuscnlrmwerlhtar.supabase.co', 
-//   'your-anon-key'); // 🔐 Remember to use env vars in production
+//   'your-anon-key'); // 
 
 // export default function App() {
 //   const [session, setSession] = useState<Session | null>(null);
@@ -132,3 +132,4 @@ import ActualApp from "./Page/ActualApp";
 //     </Router>
 //   );
 // }
+
