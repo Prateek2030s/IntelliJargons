@@ -1,3 +1,4 @@
+//just a bunch of routers
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container, Box, CssBaseline } from '@mui/material';
