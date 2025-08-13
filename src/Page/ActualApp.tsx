@@ -13,7 +13,7 @@ import LogIn from './LogIn';
 function ActualApp() {
   return (
     <Router>
-      <CssBaseline /> {/* Reset browser styles for consistency */}
+      <CssBaseline /> 
       <Box
         sx={{
           minHeight: '100vh',
@@ -24,7 +24,7 @@ function ActualApp() {
       >
         <NavBar />
 
-        {/* Main Content */}
+        { /* Main Content */}
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Box
             sx={{
